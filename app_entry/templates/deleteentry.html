@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+    deleteentry
+{% endblock title %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block nav %}
+{% endblock nav %}
+
+{% block message %}
+{% endblock message %}
+    <ul class="list-group">
+{% block content_center %}
+    <li class="list-group-item">
+    <form action="{% url 'deleteentry' entry.slug %}" method="post">{% csrf_token %}
+    <p>Are you sure you want to delete "{{ object }}"?</p>
+    <input type="submit" value="Confirm" class="btn btn-default" role="button"/>
+    <a href="{% url 'listentry' %}"class="btn btn-default" role="button">Cancel</a>
+    </form>
+    </li>
+{% endblock content_center %}
+    </ul>
+{% block extra_javascript %}
+{% endblock extra_javascript %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% block title %}
+    listentry
+{% endblock title %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block facebookSDK %}
+    <div id="fb-root"></div>
+    <script>
+        (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1550369835217494";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+{% endblock facebookSDK %}
+
+{% block content_left %}
+    <img src="{% static 'img/perfil.jpg' %}" alt="perfil"/>
+{% endblock content_left %}
+
+{% block content_center %}
+    <ul class="list-group">
+         {% for entry in object_list %}
+             <li class="list-group-item">
+             <p><a href="{% url 'detailprofile' entry.user.profile.slug %}">{{ entry.user.get_full_name }}</a></p>
+
+              <ul class="list-group">
+              <li class="list-group-item">
+              <div class="btn-group-left" role="group">
+                  <ul class="nav navbar-nav navbar-right">
+                      <li class="dropdown">
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                      <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'updateentry' entry.slug %}">edit</a></li>
+                            <li><a href="{% url 'deleteentry' entry.slug %}">delete</a></li>
+                      </ul>
+                      </li>
+                  </ul>
+              </div><br>
+              <a href="{% url 'detailentry' entry.slug %}">{{ entry.tittle }}</a> {{ entry.content }}<br><br>
+              <img src="{{ entry.image }}" alt="{{ entry.content }}"/>
+
+              </li>
+              </ul>
+
+
+
+             <a href="{% url 'createcomment' entry.slug %}" class="btn btn-default" role="button">comment</a>
+             <a class="btn btn-default fb-share-button" data-href="{% url 'campaignentry' entry.slug %}" data-layout="button"></a>
+             <a class="btn btn-default fb-send" data-href="{% url 'campaignentry' entry.slug %}"></a><br><br>
+
+                 {% for comment in entry.comment_set.all %}
+                    <ul class="list-group">
+                    <li class="list-group-item">
+
+
+
+                     <div class="btn-group-left" role="group">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{% url 'updatecomment' comment.pk %}">edit</a></li>
+                                <li><a href="{% url 'deletecomment' comment.pk %}">delete</a></li>
+                            </ul>
+                            </li>
+                        </ul>
+                     </div><br>
+                      <a href="{% url 'detailprofile' comment.user.profile.slug %}">{{ comment.user.get_full_name }}</a>: {{ comment.content }}
+                   </li>
+                 </ul>
+
+             {% endfor %}
+
+             </li><br/>
+             {% empty %}
+             <li class="list-group-item">There are not Entries</li>
+         {% endfor %}
+     </ul>
+{% endblock content_center %}
+
+{% block content_right %}
+{% endblock content_right %}
+
+{% block extra_javascript %}
+{% endblock extra_javascript %}

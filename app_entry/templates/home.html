@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+    home
+{% endblock title %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block facebookSDK %}
+{% endblock facebookSDK %}
+
+{% block nav %}
+{% endblock nav %}
+
+{% block message %}
+{% endblock message %}
+
+{% block content %}
+    {% for entry in entries %}
+    {{ entry.pk }}
+    {% endfor %}
+    {% for comment in comments %}
+    {{ comment.pk }}
+    {% endfor %}
+{% endblock content %}
+
+{% block extra_javascript %}
+{% endblock extra_javascript %}

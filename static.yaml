@@ -1,0 +1,44 @@
+handlers:
+- url: /static/img
+  static_dir: static/img
+
+- url: /static/js
+  static_dir: static/js
+
+- url: /static/css
+  static_dir: static/css
+
+- url: /static/bootstrap/css
+  static_dir: static/bootstrap/css
+
+- url: /static/bootstrap/js
+  static_dir: static/bootstrap/js
+
+- url: /static/bootstrap/fonts
+  static_dir: static/bootstrap/fonts
+  mime_type: application/font-woff, application/font-woff2, application/font-eot, application/font-ttf
+
+- url: /static/admin/css
+  static_dir: lib/django_admin_bootstrapped/static/admin/css
+
+- url: /static/admin/js
+  static_dir: lib/django_admin_bootstrapped/static/admin/js
+
+- url: /static/bootstrap/css
+  static_dir: lib/django_admin_bootstrapped/static/bootstrap/css
+
+- url: /static/bootstrap/js
+  static_dir: lib/django_admin_bootstrapped/static/bootstrap/js
+
+- url: /static/bootstrap/fonts
+  static_dir: lib/django_admin_bootstrapped/static/bootstrap/fonts
+  mime_type: application/font-woff, application/font-woff2, application/font-eot, application/font-ttf
+
+#- url: /static/admin/css
+#  static_dir: lib/django/contrib/admin/static/admin/css
+
+#- url: /static/admin/js
+#  static_dir: lib/django/contrib/admin/static/admin/js
+
+#- url: /static/admin/img
+#  static_dir: lib/django/contrib/admin/static/admin/img

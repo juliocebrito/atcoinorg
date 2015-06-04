@@ -1,0 +1,12 @@
+django-braces
+django-crispy-forms
+djangorestframework
+django==1.7.8
+facebook-sdk
+djangae==0.9.1
+pillow
+requests
+six
+django-admin-bootstrapped==2.4.0
+pngcanvas
+pyqrnative

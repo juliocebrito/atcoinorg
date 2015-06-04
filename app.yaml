@@ -1,0 +1,30 @@
+application: atcoinorg
+version: master
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /.*
+  script: atcoinorg.wsgi.application
+
+includes:
+- static.yaml
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'atcoinorg.settings'
+
+libraries:
+- name: PIL
+  version: "latest"
+
+skip_files:
+- manage.py
+- requirements.txt
+- (.*)\.pyc
+- (.*)\.db
+- (.*)\-info
+- README.md
+- .gitignore
+- db.sqlite3
+- ^(.*/)?.*.idea/.*
