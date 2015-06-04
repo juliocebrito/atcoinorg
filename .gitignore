@@ -1,6 +1,6 @@
 # Google App Engine generated folder
 appengine-generated/
-#app.yaml
+app.yaml
 index.yaml
 
 # python
