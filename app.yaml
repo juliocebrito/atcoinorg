@@ -1,5 +1,5 @@
 application: atcoinorg
-version: master
+version: development
 runtime: python27
 api_version: 1
 threadsafe: true
