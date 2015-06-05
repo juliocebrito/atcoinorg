@@ -40,5 +40,5 @@ handlers:
 #- url: /static/admin/js
 #  static_dir: lib/django/contrib/admin/static/admin/js
 
-#- url: /static/admin/img
-#  static_dir: lib/django/contrib/admin/static/admin/img
+- url: /static/admin/img
+  static_dir: lib/django/contrib/admin/static/admin/img
