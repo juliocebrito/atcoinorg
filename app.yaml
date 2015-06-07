@@ -18,7 +18,6 @@ libraries:
 - name: PIL
   version: "latest"
 
-
 - name: MySQLdb
   version: "latest"
 
