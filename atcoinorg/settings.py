@@ -93,7 +93,7 @@ DATABASES = {
     },
     'users': {
         'ENGINE': 'django.db.backends.mysql',
-        'HOST': '/cloudsql/atcoinorg:users',
+        'HOST': '/cloudsql/atcoinorg:user',
         'NAME': 'mysql',
         'USER': 'root'
     }
