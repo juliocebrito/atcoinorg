@@ -1,5 +1,5 @@
 application: atcoinorg
-version: hotfix
+version: master
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -16,9 +16,6 @@ env_variables:
 
 libraries:
 - name: PIL
-  version: "latest"
-
-- name: MySQLdb
   version: "latest"
 
 skip_files:
