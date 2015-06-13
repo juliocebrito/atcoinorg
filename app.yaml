@@ -18,6 +18,9 @@ libraries:
 - name: PIL
   version: "latest"
 
+- name: MySQLdb
+  version: "latest"
+
 skip_files:
 - manage.py
 - requirements.txt
