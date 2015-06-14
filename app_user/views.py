@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import (View, FormView, TemplateView, RedirectView,
                                   CreateView, ListView, DetailView, UpdateView, DeleteView)
-from .models import Profile
-from .forms import SignupForm, LoginForm, ProfileForm
+from .models import Profile, Relationship
+from .forms import SignupForm, LoginForm, ProfileForm, RelationshipForm
 from django.conf import settings
 import facebook
 
@@ -145,3 +145,27 @@ class UpdateProfile(UpdateView):
 
     def get_success_url(self):
         return reverse('detailprofile', kwargs={'slug':self.kwargs['slug']})
+
+
+""" Views for Relationship """
+
+class CreateRelationship(CreateView):
+    form_class = RelationshipForm
+    model = Relationship
+    template_name = 'create_relationship.html'
+    success_url = reverse_lazy('listentry')
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.profile = Profile.objects.get(slug=self.kwargs['slug'])
+        self.object.save()
+        profile = Profile.objects.get(slug=self.kwargs['slug'])
+        profile.related.add(self.request.user)
+        return super(CreateRelationship, self).form_valid(form)
+
+
+class DeleteRelationship(DeleteView):
+    model = Relationship
+    template_name = 'delete_relationship.html'
+    success_url = reverse_lazy('listentry')

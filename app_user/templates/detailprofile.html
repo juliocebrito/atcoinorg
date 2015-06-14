@@ -15,6 +15,10 @@
         <li class="list-group-item"><span class="glyphicon glyphicon-home"></span> country: {{ object.country}}</li>
         <li class="list-group-item"><span class="glyphicon glyphicon-home"></span> city: {{ object.city }}</li>
     </ul>
+    <h3>Connected</h3>
+    {% for relationship in profile.relationship_set.all %}
+        <p><a href="{% url 'detailprofile' relationship.user.profile.slug %}">{{ relationship.user.get_full_name }}</a></p>
+    {% endfor %}
 {% endblock content_center %}
 {% block extra_javascript %}
 {% endblock extra_javascript %}

@@ -62,11 +62,46 @@ WSGI_APPLICATION = 'atcoinorg.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'djangae.db.backends.appengine'
+DATABASE_ROUTERS = ['atcoinorg.routers.AuthRouter',
+                    'atcoinorg.routers.AppEntryRouter',
+                    'atcoinorg.routers.AppProfileRouter']
+
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djangae.db.backends.appengine'
+        },
+        'users': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/atcoinorg:users-data',
+            'NAME': 'users',
+            'USER': 'root'
+        }
     }
-}
+elif os.getenv('SETTINGS_MODE') == 'prod':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
+            'INSTANCE': 'atcoinorg:users-data',
+            'NAME': 'dummy',
+        },
+        'users': {
+            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
+            'INSTANCE': 'atcoinorg:users-data',
+            'NAME': 'users',
+        }
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'djangae.db.backends.appengine'
+        },
+        'users': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'users',
+            'USER': 'root'
+        }
+    }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/

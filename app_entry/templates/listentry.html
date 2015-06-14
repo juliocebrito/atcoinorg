@@ -29,7 +29,12 @@
     <ul class="list-group">
          {% for entry in object_list %}
              <li class="list-group-item">
-             <p><a href="{% url 'detailprofile' entry.user.profile.slug %}">{{ entry.user.get_full_name }}</a></p>
+             <p><a href="{% url 'detailprofile' entry.user.profile.slug %}">{{ entry.user.get_full_name }}</a>
+             <a href="{% url 'create_relationship' entry.user.profile.slug %}" class="btn btn-default" role="button">conect</a>
+             {% for relationship in entry.user.profile.relationship_set.all %}
+             <a href="{% url 'delete_relationship' relationship.pk %}" class="btn btn-default" role="button">disconect</a>
+             {% endfor %}
+             </p>
 
               <ul class="list-group">
               <li class="list-group-item">
@@ -45,24 +50,20 @@
                   </ul>
               </div><br>
               <a href="{% url 'detailentry' entry.slug %}">{{ entry.tittle }}</a> {{ entry.content }}<br><br>
-              <img src="{{ entry.image }}" alt="{{ entry.content }}"/>
+              <img src="{{ entry.image }}" alt="{{ entry.content }}" height="460px" width="460px"/>
 
               </li>
               </ul>
-
-
 
              <a href="{% url 'createcomment' entry.slug %}" class="btn btn-default" role="button">comment</a>
              <a class="btn btn-default fb-share-button" data-href="{% url 'campaignentry' entry.slug %}" data-layout="button"></a>
              <a class="btn btn-default fb-send" data-href="{% url 'campaignentry' entry.slug %}"></a><br><br>
 
-                 {% for comment in entry.comment_set.all %}
+             {% for comment in entry.comment_set.all %}
                     <ul class="list-group">
                     <li class="list-group-item">
 
-
-
-                     <div class="btn-group-left" role="group">
+                        <div class="btn-group-left" role="group">
                         <ul class="nav navbar-nav navbar-right">
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="caret"></span></a>

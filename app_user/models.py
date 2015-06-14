@@ -11,6 +11,7 @@ class Profile(models.Model):
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     email = models.EmailField(max_length=200)
+    related = models.ManyToManyField(User)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
@@ -37,7 +38,23 @@ class Profile(models.Model):
                                                          email=instance.email
                                                          )
 
+class RelationshipManager(models.Manager):
+    pass
 
+class Relationship(models.Model):
+    user = models.ForeignKey(User)
+    profile = models.ForeignKey(Profile)
+    test = models.CharField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True, auto_now=False)
+    updated = models.DateTimeField(auto_now_add=False, auto_now=True)
+    objects = RelationshipManager()
 
+    class Meta:
+        unique_together = ['user', 'profile']
+        verbose_name = 'Relationship'
+        verbose_name_plural = 'Relationships'
+
+    def __unicode__(self):
+        return unicode(self.profile)
 
 
