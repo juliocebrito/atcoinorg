@@ -1,33 +1,12 @@
-"""
-Django settings for atcoinorg project.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/1.7/topics/settings/
-
-For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.7/ref/settings/
-"""
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '&eot=(l&g&39+7pkr3v2lt4bsvijqi-qfa-79iwr&7y(*9+&e*'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = True
-
 ALLOWED_HOSTS = []
-
-
-# Application definition
 
 INSTALLED_APPS = (
     'django_admin_bootstrapped',
@@ -37,9 +16,9 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_user',
-    'app_entry',
-    'app_bank',
+    'apps.users',
+    'apps.entry',
+    'apps.bank',
     'crispy_forms',
     'rest_framework',
 )
@@ -52,29 +31,35 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
 )
 
 ROOT_URLCONF = 'atcoinorg.urls'
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
 WSGI_APPLICATION = 'atcoinorg.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASE_ROUTERS = ['atcoinorg.routers.AuthRouter',
-                    'atcoinorg.routers.AppEntryRouter',
-                    'atcoinorg.routers.AppProfileRouter']
 
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
     DATABASES = {
         'default': {
-            'ENGINE': 'djangae.db.backends.appengine'
-        },
-        'users': {
             'ENGINE': 'django.db.backends.mysql',
-            'HOST': '/cloudsql/atcoinorg:users-data',
-            'NAME': 'users',
+            'HOST': '/cloudsql/atcoinorg:data',
+            'NAME': 'atcoinorg',
             'USER': 'root'
         }
     }
@@ -82,29 +67,21 @@ elif os.getenv('SETTINGS_MODE') == 'prod':
     DATABASES = {
         'default': {
             'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-            'INSTANCE': 'atcoinorg:users-data',
-            'NAME': 'dummy',
-        },
-        'users': {
-            'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-            'INSTANCE': 'atcoinorg:users-data',
-            'NAME': 'users',
+            'INSTANCE': 'atcoinorg:atcoinorg',
+            'NAME': 'atcoinorg'
         }
     }
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'djangae.db.backends.appengine'
-        },
-        'users': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': 'users',
-            'USER': 'root'
+            'NAME': 'atcoinorg',
+            'USER': 'root',
+            'PASSWORD': 'britto',
+            'HOST': 'localhost',
+            'PORT': '3306'
         }
     }
-
-# Internationalization
-# https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -116,15 +93,21 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.7/howto/static-files/
-
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+BUCKET_NAME = 'atcoinorg'
+
+DEFAULT_FILE_STORAGE = 'atcoinorg.storage.GoogleCloudStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-AUTH_PROFILE_MODULE = 'app_user.Profile'
+AUTH_PROFILE_MODULE = 'apps.user.Profile'
 
 FACEBOOK_APP_ID = '1550369835217494'
 FACEBOOK_APP_SECRET = '06e9d93d4727719e533dc0ab9a663344'
