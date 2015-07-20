@@ -1,0 +1,55 @@
+{% extends "basic.html" %}
+
+{% block title %}
+    index
+{% endblock title %}
+
+{% block extra_css %}
+{% endblock extra_css %}
+
+{% block facebookSDK %}
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1550369835217494',
+                status     : true,
+                cookie     : true,
+                xfbml      : true,
+                version    : 'v2.3'
+            });
+
+            FB.Event.subscribe('auth.login', function(response) {
+                window.location = window.location;
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+{% endblock facebookSDK %}
+{% block content %}
+   <div class="container theme-showcase" role="main">
+      <div class="jumbotron">
+        <h1>Welcome</h1>
+        <p>Connect people and companies around the world. Share a new way of linking consumers and businesses.
+           Get profits, find deals and get benefits from products and services that improve your lifestyle.</p>
+      </div>
+      <div class="page-header">
+        <h1>Connect</h1>
+      </div>
+      <p>
+        <a type="button" class="btn btn-lg btn-default" href="{% url 'signin' %}">Sign in</a>
+        <a type="button" class="btn btn-lg btn-default" href="{% url 'login' %}">Log in</a>
+        <a type="button" class="btn btn-lg btn-default fb-login-button" data-max-rows="1" data-size="large"
+           data-show-faces="false" data-auto-logout-link="true"></a>
+      </p>
+   </div>
+{% endblock content %}
+
+{% block extra_javascript %}
+{% endblock extra_javascript %}

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}
+    detailprofile
+{% endblock title %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block nav %}
+{% endblock nav %}
+{% block message %}
+{% endblock message %}
+{% block content_center %}
+    <ul class="list-group">
+        <li class="list-group-item"><h3>{{ object }}</h3><a href="{% url 'updateprofile' object.slug %}">Edit</a></li>
+        <li class="list-group-item"><span class="glyphicon glyphicon-envelope"></span> email: {{ object.email }}</li>
+        <li class="list-group-item"><span class="glyphicon glyphicon-home"></span> country: {{ object.country}}</li>
+        <li class="list-group-item"><span class="glyphicon glyphicon-home"></span> city: {{ object.city }}</li>
+    </ul>
+    <h3>Connected</h3>
+    {% for relationship in profile.relationship_set.all %}
+        <p><a href="{% url 'detailprofile' relationship.user.profile.slug %}">{{ relationship.user.get_full_name }}</a></p>
+    {% endfor %}
+{% endblock content_center %}
+{% block extra_javascript %}
+{% endblock extra_javascript %}
