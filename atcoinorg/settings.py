@@ -67,7 +67,7 @@ elif os.getenv('SETTINGS_MODE') == 'prod':
     DATABASES = {
         'default': {
             'ENGINE': 'google.appengine.ext.django.backends.rdbms',
-            'INSTANCE': 'atcoinorg:atcoinorg',
+            'INSTANCE': 'atcoinorg:data',
             'NAME': 'atcoinorg'
         }
     }
@@ -103,11 +103,14 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 BUCKET_NAME = 'atcoinorg'
 
-DEFAULT_FILE_STORAGE = 'atcoinorg.storage.GoogleCloudStorage'
+if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
+    DEFAULT_FILE_STORAGE = 'atcoinorg.storage.GoogleCloudStorage'
+else:
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
-AUTH_PROFILE_MODULE = 'apps.user.Profile'
+AUTH_PROFILE_MODULE = 'apps.users.Profile'
 
 FACEBOOK_APP_ID = '1550369835217494'
 FACEBOOK_APP_SECRET = '06e9d93d4727719e533dc0ab9a663344'
