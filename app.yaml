@@ -11,11 +11,17 @@ handlers:
 includes:
 - static.yaml
 
+builtins:
+- django_wsgi: on
+
 env_variables:
   DJANGO_SETTINGS_MODULE: 'atcoinorg.settings'
 
 libraries:
 - name: PIL
+  version: "latest"
+
+- name: MySQLdb
   version: "latest"
 
 skip_files:

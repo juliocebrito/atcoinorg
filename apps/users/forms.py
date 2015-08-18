@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import Profile
+from .models import Profile, Relationship
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, ButtonHolder, Button, HTML
 from django.contrib.auth.models import User
@@ -54,5 +54,20 @@ class ProfileForm(ModelForm):
             'first_name',
             'last_name',
             'email',
+            ButtonHolder(
+                Submit('Enter', 'Enter', css_class='btn-success'), Button('cancel', 'Cancel', onclick='window.history.back()')))
+
+
+class RelationshipForm(ModelForm):
+    class Meta:
+        model = Relationship
+        fields =['message']
+
+    def __init__(self, *args, **kwargs):
+        super(RelationshipForm, self).__init__(*args, **kwargs)
+
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            'message',
             ButtonHolder(
                 Submit('Enter', 'Enter', css_class='btn-success'), Button('cancel', 'Cancel', onclick='window.history.back()')))

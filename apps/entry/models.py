@@ -8,7 +8,8 @@ class Entry(models.Model):
     tittle = models.CharField(max_length=20, unique=True)
     slug = models.SlugField(max_length=20)
     content = models.CharField(max_length=200)
-    image = models.URLField()
+    imageurl = models.URLField(blank=True)
+    image = models.ImageField(upload_to='image')
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 

@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 class Account(models.Model):
     user = models.OneToOneField(User, null=True)
     holder = models.CharField(max_length=200)
-    balance = models.IntegerField(default=0)
+    balance = models.FloatField(default=0.0)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
     updated = models.DateTimeField(auto_now_add=False, auto_now=True)
 
@@ -28,7 +28,7 @@ class Account(models.Model):
 class Pay(models.Model):
     user = models.ForeignKey(User, null=True)
     account = models.ForeignKey(Account, null=True)
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0.0)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     class Meta:
@@ -57,7 +57,7 @@ class CodePay(models.Model):
 class Charge(models.Model):
     user = models.ForeignKey(User, null=True)
     account = models.ForeignKey(Account, null=True)
-    value = models.IntegerField(default=0)
+    value = models.FloatField(default=0.0)
     created = models.DateTimeField(auto_now_add=True, auto_now=False)
 
     class Meta:

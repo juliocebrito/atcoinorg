@@ -7,7 +7,7 @@ from crispy_forms.layout import Submit, Layout, ButtonHolder, Button, HTML
 class EntryForm(ModelForm):
     class Meta:
         model = Entry
-        fields = ['tittle', 'content', 'image']
+        fields = ['tittle', 'content', 'imageurl', 'image']
 
     def __init__(self, *args, **kwargs):
         super(EntryForm, self).__init__(*args, **kwargs)
@@ -16,6 +16,7 @@ class EntryForm(ModelForm):
         self.helper.layout = Layout(
             'tittle',
             'content',
+            'imageurl',
             'image',
             ButtonHolder(
                 Submit('Enter', 'Enter', css_class='btn-default'), Button('cancel', 'Cancel', onclick='window.history.back()')))

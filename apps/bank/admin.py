@@ -5,7 +5,7 @@ from .models import Account, Pay, Charge
 
 @admin.register(Account)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'balance', 'created', 'updated')
+    list_display = ('holder', 'balance', 'created', 'updated')
 
 admin.site.register(Pay)
 admin.site.register(Charge)
