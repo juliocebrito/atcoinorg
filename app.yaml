@@ -32,5 +32,4 @@ skip_files:
 - (.*)\-info
 - README.md
 - .gitignore
-- db.sqlite3
 - ^(.*/)?.*.idea/.*
