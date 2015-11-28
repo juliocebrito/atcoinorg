@@ -2,6 +2,7 @@ django-braces
 django-crispy-forms
 djangorestframework
 django
+djangae
 facebook-sdk
 pillow
 requests
