@@ -101,6 +101,8 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+ADMIN_MEDIA_PREFIX = '/media/'
+
 BUCKET_NAME = 'atcoinorg'
 
 if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
