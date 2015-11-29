@@ -1,15 +1,15 @@
 application: atcoinorg
-version: development
+version: master
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
+- url: /static
+  static_dir: static
+
 - url: /.*
   script: atcoinorg.wsgi.application
-
-includes:
-- static.yaml
 
 builtins:
 - django_wsgi: on
@@ -19,9 +19,6 @@ env_variables:
 
 libraries:
 - name: PIL
-  version: "latest"
-
-- name: MySQLdb
   version: "latest"
 
 skip_files:
