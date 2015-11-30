@@ -9,5 +9,6 @@ urlpatterns = [
     url(r'^', include(users_urls)),
     url(r'^', include(bank_urls)),
     url(r'^', include(entry_urls)),
+    url(r'^_ah/', include('djangae.urls')),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.core.urlresolvers import reverse
 
 
 class Entry(models.Model):
@@ -24,6 +25,9 @@ class Entry(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.tittle)
         super(Entry, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('detailentry', kwargs={'slug': self.slug})
 
 
 class Comment(models.Model):
