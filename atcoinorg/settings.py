@@ -1,3 +1,4 @@
+from djangae.settings_base import *
 import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -9,6 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 INSTALLED_APPS = (
+    'djangae'
     'django_admin_bootstrapped',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,22 +76,12 @@ STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-MEDIA_URL = '/media/'
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-ADMIN_MEDIA_PREFIX = '/media/'
-
-BUCKET_NAME = 'atcoinorg'
-
-GOOGLE_CLOUD_STORAGE_BUCKET = '/atcoinorg' # the name of the bucket you have created from the google cloud storage console
-GOOGLE_CLOUD_STORAGE_URL = 'http://storage.googleapis.com/atcoinorg' #whatever the ulr for accessing your cloud storgage bucket
-GOOGLE_CLOUD_STORAGE_DEFAULT_CACHE_CONTROL = 'public, max-age: 7200' # default cache control headers for your files
-
-if os.getenv('SERVER_SOFTWARE', '').startswith('Google App Engine'):
-    DEFAULT_FILE_STORAGE = 'atcoinorg.storage.GoogleCloudStorage'
-else:
-    DEFAULT_FILE_STORAGE = 'atcoinorg.localstorage.GoogleCloudStorage'
+DEFAULT_FILE_STORAGE = 'djangae.storage.BlobstoreStorage'
+FILE_UPLOAD_MAX_MEMORY_SIZE = 1024 * 1024
+FILE_UPLOAD_HANDLERS = (
+    'djangae.storage.BlobstoreFileUploadHandler',
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
